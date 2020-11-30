@@ -1,0 +1,34 @@
+From 603a42f8da250dc9c5e15425ea9c6fae8eb60a50 Mon Sep 17 00:00:00 2001
+From: cracked-machine <chrisjsutton@gmail.com>
+Date: Mon, 30 Nov 2020 13:15:54 +0000
+Subject: [PATCH] ARM: dts: add support for BME280 sensor on STM32MP157 DK1
+
+Signed-off-by: cracked-machine <chrisjsutton@gmail.com>
+---
+ arch/arm/boot/dts/stm32mp157a-dk1.dts | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+index e3a36d3cdb45..282f767ef624 100644
+--- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
++++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+@@ -722,3 +722,16 @@
+ 	vdda-supply = <&vdd>;
+ 	status = "okay";
+ };
++
++&i2c5 {
++	status = "okay";
++	clock-frequency = <100000>;
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2c5_pins_a>;
++	pinctrl-1 = <&i2c5_pins_sleep_a>;
++	
++	pressure@76 {
++		compatible = "bosch,bme280";
++		reg = <0x76>;
++	};
++};
+-- 
+2.17.1
+
